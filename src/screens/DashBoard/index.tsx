@@ -17,6 +17,7 @@ import {
   UserInfo,
   UserName,
   UserWrapper,
+  LogoutButton,
 } from "./styles";
 
 export interface DataListProps extends TransactionCardProps {
@@ -75,7 +76,10 @@ const DashBoard: React.FC = () => {
               <UserName>Kamila</UserName>
             </User>
           </UserInfo>
-          <Icon name="power" />
+
+          <LogoutButton onPress={() => {}}>
+            <Icon name="power" />
+          </LogoutButton>
         </UserWrapper>
       </Header>
 

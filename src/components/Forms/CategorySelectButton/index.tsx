@@ -1,6 +1,4 @@
 import React from "react";
-import { View } from "react-native";
-
 import { Container, Category, Icon } from "./styles";
 
 interface Props {

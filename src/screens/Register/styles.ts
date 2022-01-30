@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
+  padding-bottom: 8px;
 `;
 export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
