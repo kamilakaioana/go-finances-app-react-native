@@ -1,4 +1,5 @@
 import React from "react";
+import { formatCurrency } from "../../Utils";
 import { Container, Title, Amount } from "./styles";
 
 interface IHistoryCardProps {
@@ -11,7 +12,7 @@ const HistoryCard: React.FC<IHistoryCardProps> = ({ color, title, amount }) => {
   return (
     <Container color={color}>
       <Title>{title}</Title>
-      <Amount>{amount}</Amount>
+      <Amount>{formatCurrency(amount)}</Amount>
     </Container>
   );
 };
