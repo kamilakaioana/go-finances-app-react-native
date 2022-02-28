@@ -19,12 +19,22 @@ import {
 } from "./styles";
 import { schema } from "./schema";
 import { ScrollView } from "react-native-gesture-handler";
+import { StringResources } from "../../Utils/stringResources";
 
 interface FormData {
   name: string;
   amount: number;
 }
 const Register: React.FC = () => {
+  const {
+    SELECIONE_TIPO_TRANSACAO,
+    SELECIONE_CATEGORIA,
+    NAO_FOI_REALIZADO_CADASTRO,
+  } = StringResources.ALERTAS;
+  const { NOME, PRECO } = StringResources.INPUTS;
+  const { ENVIAR } = StringResources.BUTTONS;
+  const { CADASTRO } = StringResources;
+
   const [category, setCategory] = useState({
     key: "category",
     name: "categoria",
@@ -55,10 +65,9 @@ const Register: React.FC = () => {
   };
 
   const handleRegister = async (form: FormData) => {
-    if (!transactionType) return Alert.alert("Selecione o tipo da transação!");
+    if (!transactionType) return Alert.alert(SELECIONE_TIPO_TRANSACAO);
 
-    if (category.key === "category")
-      return Alert.alert("Selecione a categoria");
+    if (category.key === "category") return Alert.alert(SELECIONE_CATEGORIA);
 
     const newTransaction = {
       id: String(uuid.v4()),
@@ -83,7 +92,7 @@ const Register: React.FC = () => {
       });
     } catch (error) {
       console.log(error);
-      Alert.alert("Não foi possivel realizar o cadastro");
+      Alert.alert(NAO_FOI_REALIZADO_CADASTRO);
     }
   };
 
@@ -91,7 +100,7 @@ const Register: React.FC = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <Header>
-          <Title>Cadastro</Title>
+          <Title>{CADASTRO}</Title>
         </Header>
         <ScrollView>
           <Form>
@@ -99,7 +108,7 @@ const Register: React.FC = () => {
               <InputForm
                 name="name"
                 control={control}
-                placeholder="Nome"
+                placeholder={NOME}
                 autoCapitalize="sentences"
                 autoCorrect={false}
                 Error={errors.name && errors.name.message}
@@ -108,7 +117,7 @@ const Register: React.FC = () => {
               <InputForm
                 name="amount"
                 control={control}
-                placeholder="Preço"
+                placeholder={PRECO}
                 keyboardType="numeric"
                 Error={errors.amount && errors.amount.message}
               />
@@ -132,7 +141,7 @@ const Register: React.FC = () => {
               />
             </Fields>
 
-            <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+            <Button title={ENVIAR} onPress={handleSubmit(handleRegister)} />
           </Form>
         </ScrollView>
         <Modal visible={categoryModalOpen}>

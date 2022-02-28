@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 import Button from "../../components/Forms/Button";
 
 import { categories } from "../../Utils/categories";
+import { StringResources } from "../../Utils/stringResources";
 
 import {
   Container,
@@ -36,7 +37,7 @@ const CategorySelect: React.FC<Props> = ({
   return (
     <Container>
       <Header>
-        <Title>Categoria</Title>
+        <Title>{StringResources.CATEGORIA}</Title>
       </Header>
       <FlatList
         data={categories}
@@ -55,7 +56,10 @@ const CategorySelect: React.FC<Props> = ({
       />
 
       <Footer>
-        <Button title="Selecionar" onPress={closeSelectCategory} />
+        <Button
+          title={StringResources.BUTTONS.SELECIONAR}
+          onPress={closeSelectCategory}
+        />
       </Footer>
     </Container>
   );

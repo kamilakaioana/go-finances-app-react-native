@@ -23,12 +23,9 @@ import {
   LogoutButton,
   ContainerLoader,
 } from "./styles";
-import {
-  formatCurrency,
-  formatDate,
-  getLastTransactionDate,
-} from "../../Utils";
+import { formatCurrency, getLastTransactionDate } from "../../Utils";
 import theme from "../../global/styles/theme";
+import { StringResources } from "../../Utils/stringResources";
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -46,6 +43,7 @@ interface IHighlightCards {
 }
 
 const DashBoard: React.FC = () => {
+  const { SAIDA, ENTRADA, TOTAL, SAUDACAO, LISTAGEN } = StringResources;
   const [data, setData] = useState<DataListProps[]>([]);
   const [highlightCards, setHighlightCards] = useState<IHighlightCards>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -121,7 +119,7 @@ const DashBoard: React.FC = () => {
                   }}
                 />
                 <User>
-                  <UserGreeting>Olá,</UserGreeting>
+                  <UserGreeting>{SAUDACAO}</UserGreeting>
                   <UserName>Kamila</UserName>
                 </User>
               </UserInfo>
@@ -135,26 +133,26 @@ const DashBoard: React.FC = () => {
           <HighlightCards>
             <HighlightCard
               type="up"
-              title="Entrada"
+              title={ENTRADA}
               amount={formatCurrency(highlightCards?.cashEntry.amount ?? 0)}
               lastTransaction={highlightCards?.cashEntry.lastTrasaction ?? ""}
             />
             <HighlightCard
               type="down"
-              title="Saídas"
+              title={SAIDA}
               amount={formatCurrency(highlightCards?.cashOut.amount ?? 0)}
               lastTransaction={highlightCards?.cashOut.lastTrasaction ?? ""}
             />
             <HighlightCard
               type="total"
-              title="Total"
+              title={TOTAL}
               amount={formatCurrency(highlightCards?.total.amount ?? 0)}
               lastTransaction={highlightCards?.total.lastTrasaction ?? ""}
             />
           </HighlightCards>
 
           <Transactions>
-            <Title>Listagem</Title>
+            <Title>{LISTAGEN}</Title>
 
             <TransactionList
               data={data}
