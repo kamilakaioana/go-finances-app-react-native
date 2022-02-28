@@ -94,6 +94,12 @@ export const Title = styled.Text`
   margin-bottom: 16px;
 `;
 
+export const ContainerLoader = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+`;
+
 export const TransactionList = styled(
   FlatList as new () => FlatList<DataListProps>
 ).attrs({

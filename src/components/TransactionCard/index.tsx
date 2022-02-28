@@ -1,4 +1,6 @@
 import React from "react";
+import { formatCurrency, formatDate } from "../../Utils";
+import { categories } from "../../Utils/categories";
 
 import {
   Container,
@@ -11,16 +13,11 @@ import {
   Date,
 } from "./styles";
 
-interface Category {
-  name: string;
-  icon: string;
-}
-
 export interface TransactionCardProps {
-  type: "positive" | "negative";
-  title: string;
-  amount: string;
-  category: Category;
+  type: "up" | "down";
+  name: string;
+  amount: number;
+  category: string;
   date: string;
 }
 
@@ -29,21 +26,24 @@ interface Props {
 }
 
 const TransactionCard: React.FC<Props> = ({ data }) => {
+  const findCategory = categories.filter(
+    (item) => item.key === data.category
+  )[0];
   return (
     <Container>
-      <Title>{data.title}</Title>
+      <Title>{data.name}</Title>
 
       <Amount type={data.type}>
-        {data.type === "negative" && "- "}
-        {data.amount}
+        {data.type === "down" && "- "}
+        {formatCurrency(data.amount)}
       </Amount>
 
       <Footer>
         <Category>
-          <Icon name={data.category.icon} />
-          <CategoryName>{data.category.name}</CategoryName>
+          <Icon name={findCategory.icon} />
+          <CategoryName>{findCategory.name}</CategoryName>
         </Category>
-        <Date>{data.date}</Date>
+        <Date>{data.date ? formatDate(data.date) : ""}</Date>
       </Footer>
     </Container>
   );

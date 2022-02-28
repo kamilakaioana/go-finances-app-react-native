@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import Button from "../../components/Forms/Button";
 import { InputForm } from "../../components/Forms/InputForm";
@@ -8,6 +8,7 @@ import CategorySelectButton from "../../components/Forms/CategorySelectButton";
 import CategorySelect from "../CategorySelect";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from "react-native-uuid";
 import {
   Container,
   Header,
@@ -33,6 +34,7 @@ const Register: React.FC = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -57,30 +59,34 @@ const Register: React.FC = () => {
 
     if (category.key === "category")
       return Alert.alert("Selecione a categoria");
-    const data = {
+
+    const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      transactionType,
+      type: transactionType,
       category: category.key,
+      date: new Date(),
     };
 
     try {
-      await AsyncStorage.setItem(dataKey, JSON.stringify(data));
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : [];
+      const dataFormatted = [...currentData, newTransaction];
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+      reset();
+      setTransactionType("");
+      setCategory({
+        key: "category",
+        name: "categoria",
+      });
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possivel realizar o cadastro");
     }
   };
 
-  useEffect(() => {
-    async function loadData() {
-      const data = await AsyncStorage.getItem(dataKey);
-      if (data != null) {
-        console.log(JSON.parse(data));
-      }
-    }
-    loadData();
-  }, []);
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
