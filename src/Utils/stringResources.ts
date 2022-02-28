@@ -25,4 +25,5 @@ export const StringResources = {
   SAUDACAO: "Olá, ",
   CATEGORIA: "Categoria",
   CADASTRO: "Cadastro",
+  RESUMO_POR_CATEGORIA: "Resumo por Categoria",
 };

@@ -70,9 +70,6 @@ const DashBoard: React.FC = () => {
       "01 à"
     );
 
-    console.log("transactionCashEntry", transactionCashEntry);
-    console.log("transactionCashOut", transactionCashOut);
-
     const totalValues = cashEntry - cashOut;
 
     setHighlightCards({
