@@ -23,5 +23,10 @@ export const Title = styled.Text`
 `;
 
 export const Content = styled.ScrollView.attrs({
-  contentContainerStyle: { flex: 1, padding: 24 },
+  contentContainerStyle: { padding: 24 },
 })``;
+
+export const ChartContainer = styled.View`
+  padding-right: 24px;
+  align-items: center;
+`;
