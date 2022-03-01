@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react";
 import HistoryCard from "../../components/HistoryCard";
 import { StringResources } from "../../Utils/stringResources";
-import { Container, Header, Title, Content, ChartContainer } from "./styles";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  ChartContainer,
+  MothSelect,
+  MothSelectButton,
+  MothSelectButtonIcon,
+  Month,
+} from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TransactionCardProps } from "../../components/TransactionCard";
 import { categories } from "../../Utils/categories";
 import { VictoryPie } from "victory-native";
-import theme from "../../global/styles/theme";
+import { useTheme } from "styled-components";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const { RESUMO_POR_CATEGORIA } = StringResources;
 
@@ -20,6 +31,7 @@ type CategoryType = {
 };
 
 const Resume: React.FC = () => {
+  const theme = useTheme();
   const [totalByCategories, setTotalByCategories] = useState<CategoryType[]>();
   async function loadData() {
     const dataKey = "@goFinances:transactions";
@@ -71,7 +83,25 @@ const Resume: React.FC = () => {
       <Header>
         <Title>{RESUMO_POR_CATEGORIA}</Title>
       </Header>
-      <Content>
+      <Content
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight(),
+        }}
+      >
+        <MothSelect>
+          <MothSelectButton>
+            <MothSelectButtonIcon name="chevron-left" />
+          </MothSelectButton>
+
+          <Month>Maio</Month>
+
+          <MothSelectButton>
+            <MothSelectButtonIcon name="chevron-right" />
+          </MothSelectButton>
+        </MothSelect>
+
         <ChartContainer>
           <VictoryPie
             data={totalByCategories}
